@@ -10,7 +10,6 @@ from api.utils import APIException, generate_sitemap
 from api.models import db,User
 from api.routes import api
 from api.admin import setup_admin
-#from models import Person
 
 from flask_jwt_extended import JWTManager
 
@@ -40,7 +39,7 @@ setup_admin(app)
 # Add all endpoints form the API with a "api" prefix
 app.register_blueprint(api, url_prefix='/api')
 
-
+#* JWTSpecial Method for loading User Data into the Session
 @jwt.user_identity_loader
 def user_identity_lookup(user):
     return user.id
@@ -49,6 +48,7 @@ def user_identity_lookup(user):
 def user_lookup_callback(_jwt_header, jwt_data):
     identity = jwt_data["sub"]
     return User.query.filter_by(id=identity).one_or_none()
+#* JWTSpecial Method for loading User Data into the Session
 
 
 # Handle/serialize errors like a JSON object

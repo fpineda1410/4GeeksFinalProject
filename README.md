@@ -18,5 +18,6 @@ FLASK_ENV=development</p>
 <p>Una vez hecha su base de datos, hacen pipenv run init, luego pipenv run migrate y luego pipenv run upgrade</p>
 
 <p>Para disfrutar de manera local sin gitpod ejecutan pipenv run local_start</p>
+<p>Ojo si su version de Python es mayor a 3.8 irse al Pipfile y en [scripts] local_start poner su version!</p>
 
 <p>10de10 Felipe</p>

@@ -21,7 +21,7 @@ from datetime import timedelta
 api = Blueprint('api', __name__)
 
 
-#* Esta funcion carga a cualquier tabla o bases de datos informacion antes de cualquier primer request
+#* This method injects data to the database before receiving any foreign requests
 @api.before_app_first_request
 def characters_load():
     user=User()
@@ -31,7 +31,6 @@ def characters_load():
     user.is_active=True
     db.session.add(user)
     db.session.commit()
-
 
 @api.route('/create-account', methods=['POST'])
 def create_account():
@@ -74,22 +73,27 @@ def login():
 
     return jsonify(access_token=access_token)
 
+
 @api.route("/get-user-data" , methods=["GET"])
 @jwt_required()
 def get_favorites():
-    #!Aqui insertamos algun metodo de retornar una sola lista de varias bases de datos
+    #*--Check special_utilities/payload_handlers
     merged_lists=get_merged_lists(current_user.id)
     return jsonify(merged_lists), 200
+
+
 
 @api.route("/update-user-data" , methods=["POST"])
 @jwt_required()
 def update_data_user():
+    #*--Check special_utilities/payload_handlers
     user_payload=request.get_json()
     updated_information=update_favorites_lists(user_payload,current_user.id)
-    return jsonify("Succesfully updated databases", updated_lists), 200
+    return jsonify("Succesfully updated databases", updated_information), 200
     
 
-#Just use for debugging purposes
+
+#!----Just use for debugging purposes
 @api.route("/user_identity", methods=["GET"])
 @jwt_required()
 def protected():
