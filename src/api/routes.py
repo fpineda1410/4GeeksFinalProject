@@ -21,16 +21,17 @@ from datetime import timedelta
 api = Blueprint('api', __name__)
 
 
+#* Esta funcion carga a cualquier tabla o bases de datos informacion antes de cualquier primer request
 @api.before_app_first_request
 def characters_load():
-    try:
-        characters = Character.query.all()
-        planets = Planet.query.all()
-        if (not characters) or (not planets): 
-            initial_loader()
-        return jsonify("Planets and Characters already in database"), 200
-    except:
-        return jsonify("A fetch error ocurred with Swapi"), 200
+    user=User()
+    user.username="example_user"
+    user.email="example_email"
+    user.password="example_password"
+    user.is_active=True
+    db.session.add(user)
+    db.session.commit()
+
 
 @api.route('/create-account', methods=['POST'])
 def create_account():
@@ -73,29 +74,18 @@ def login():
 
     return jsonify(access_token=access_token)
 
-@api.route("/get-favorites" , methods=["GET"])
+@api.route("/get-user-data" , methods=["GET"])
 @jwt_required()
 def get_favorites():
+    #!Aqui insertamos algun metodo de retornar una sola lista de varias bases de datos
     merged_lists=get_merged_lists(current_user.id)
     return jsonify(merged_lists), 200
 
-@api.route("/planets" , methods=["GET"])
-def get_planets():
-    planet = Planet.query.all()
-    planet = list(map(lambda x: x.serialize(), planet))
-    return jsonify(planet), 200
-
-@api.route("/characters" , methods=["GET"])
-def get_characters():
-    character = Character.query.all()
-    character = list(map(lambda x: x.serialize(), character))
-    return jsonify(character), 200
-
-@api.route("/update-favorites" , methods=["POST"])
+@api.route("/update-user-data" , methods=["POST"])
 @jwt_required()
-def update_favorites_sm():
+def update_data_user():
     user_payload=request.get_json()
-    updated_lists=update_favorites_lists(user_payload,current_user.id)
+    updated_information=update_favorites_lists(user_payload,current_user.id)
     return jsonify("Succesfully updated databases", updated_lists), 200
     
 
