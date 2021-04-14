@@ -40,8 +40,6 @@ class Color(db.Model):
             # do not serialize the password, its a security breach
         }
 
-
-
 class FavoriteColor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id= db.Column(db.Integer, db.ForeignKey(User.id))
@@ -56,6 +54,106 @@ class FavoriteColor(db.Model):
             "user_id": self.user_id,
             "color_id": self.color_id
             # do not serialize the password, its a security breach
+        }
+
+class Service1(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    category=db.Column(db.String(100))
+    brand=db.Column(db.String(100))
+    description=db.Column(db.String(100))
+    provider=db.Column(db.String(100))
+    phone=db.Column(db.String(100))
+    price=db.Column(db.Integer)
+
+    def getAllService():
+        list_serv = Service1.query.all()
+        list_serv = list(map(lambda x: x.serialize(), list_serv))
+        return(list_serv)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "category": self.category,
+            "brand": self.brand,
+            "description": self.description,
+            "provider": self.provider,
+            "phone": self.phone,
+            "price": self.price,
+        }
+
+class Service2(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    category=db.Column(db.String(100))
+    brand=db.Column(db.String(100))
+    description=db.Column(db.String(100))
+    provider=db.Column(db.String(100))
+    phone=db.Column(db.String(100))
+    price=db.Column(db.Integer)
+
+    def getAllService():
+        list_serv = Service2.query.all()
+        list_serv = list(map(lambda x: x.serialize(), list_serv))
+        return(list_serv)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "category": self.category,
+            "brand": self.brand,
+            "description": self.description,
+            "provider": self.provider,
+            "phone": self.phone,
+            "price": self.price,
+        }
+
+class Service3(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    category=db.Column(db.String(100))
+    brand=db.Column(db.String(100))
+    description=db.Column(db.String(100))
+    provider=db.Column(db.String(100))
+    phone=db.Column(db.String(100))
+    price=db.Column(db.Integer)
+
+    def getAllService():
+        list_serv = Service3.query.all()
+        list_serv = list(map(lambda x: x.serialize(), list_serv))
+        return(list_serv)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "category": self.category,
+            "brand": self.brand,
+            "description": self.description,
+            "provider": self.provider,
+            "phone": self.phone,
+            "price": self.price,
+        }
+
+class Service4(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    category=db.Column(db.String(100))
+    brand=db.Column(db.String(100))
+    description=db.Column(db.String(100))
+    provider=db.Column(db.String(100))
+    phone=db.Column(db.String(100))
+    price=db.Column(db.Integer)
+
+    def getAllService():
+        list_serv = Service4.query.all()
+        list_serv = list(map(lambda x: x.serialize(), list_serv))
+        return(list_serv)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "category": self.category,
+            "brand": self.brand,
+            "description": self.description,
+            "provider": self.provider,
+            "phone": self.phone,
+            "price": self.price,
         }
     
     

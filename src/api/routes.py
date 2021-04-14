@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User,Color,FavoriteColor
+from api.models import db, User, Service1, Service2, Service3, Service4, Color, FavoriteColor
 from api.utils import generate_sitemap, APIException
 import requests
 
@@ -23,14 +23,14 @@ api = Blueprint('api', __name__)
 
 #* This method injects data to the database before receiving any foreign requests
 @api.before_app_first_request
-def characters_load():
-    user=User()
-    user.username="example_user"
-    user.email="example_email"
-    user.password="example_password"
-    user.is_active=True
-    db.session.add(user)
-    db.session.commit()
+# def characters_load():
+#     user=User()
+#     user.username="example_user"
+#     user.email="example_email"
+#     user.password="example_password"
+#     user.is_active=True
+#     db.session.add(user)
+#     db.session.commit()
 
 @api.route('/create-account', methods=['POST'])
 def create_account():
@@ -104,4 +104,30 @@ def protected():
         full_name=current_user.email,
         username=current_user.username,
     )
+
+@api.route("/service1" , methods=["GET"])
+def get_serv1():    
+    return jsonify(Service1.getAllService()), 200
+
+@api.route("/service2" , methods=["GET"])
+def get_serv2():   
+    return jsonify(Service2.getAllService()), 200
+
+@api.route("/service3" , methods=["GET"])
+def get_serv3():    
+    return jsonify(Service3.getAllService()), 200
+
+@api.route("/service4" , methods=["GET"])
+def get_serv4():    
+    return jsonify(Service4.getAllService()), 200
+
+@api.route("/all" , methods=["GET"])
+def get_all():
+    allService = {
+        "flower": Service1.getAllService(),
+        "salon": Service2.getAllService(),
+        "meal": Service3.getAllService(),
+        "photo": Service4.getAllService()
+    }
+    return jsonify(allService), 200
 

@@ -1,7 +1,7 @@
   
 import os
 from flask_admin import Admin
-from .models import db, User,Color, FavoriteColor
+from .models import db, User, Service1, Service2, Service3, Service4, Color, FavoriteColor
 from flask_admin.contrib.sqla import ModelView
 
 def setup_admin(app):
@@ -12,4 +12,8 @@ def setup_admin(app):
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Color, db.session))
     admin.add_view(ModelView(FavoriteColor, db.session))
+    admin.add_view(ModelView(Service1, db.session))
+    admin.add_view(ModelView(Service2, db.session))
+    admin.add_view(ModelView(Service3, db.session))
+    admin.add_view(ModelView(Service4, db.session))
    
