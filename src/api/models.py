@@ -10,7 +10,7 @@ class User(db.Model):
     username = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=True)
-    favorite_color = db.relationship('GenericModel',backref='user',lazy=True)
+    favorite_color = db.relationship('FavoriteColor',backref='user',lazy=True)
     
     def __repr__(self):
         return '<User %s>' % self.username
@@ -27,8 +27,8 @@ class User(db.Model):
 
 class Color(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    color=db.db.Column(db.String(100))
-    favorite_color = db.relationship('GenericModel',backref='color',lazy=True)
+    color=db.Column(db.String(100))
+    favorite_color = db.relationship('FavoriteColor',backref='color',lazy=True)
     
     def __repr__(self):
         return '<User %s>' % self.username

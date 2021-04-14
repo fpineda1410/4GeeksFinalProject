@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User,Character,Planet,FavoritePlanet, FavoriteCharacter
+from api.models import db, User,Color,FavoriteColor
 from api.utils import generate_sitemap, APIException
 import requests
 
@@ -12,8 +12,8 @@ from flask_jwt_extended import current_user
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 
-from .special_utilities.initialLoad import initial_loader
-from .special_utilities.payload_handlers import get_merged_lists,update_favorites_lists
+# from .special_utilities.initialLoad import initial_loader
+# from .special_utilities.payload_handlers import get_merged_lists,update_favorites_lists
 
 from datetime import timedelta
 
@@ -77,10 +77,10 @@ def login():
 @api.route("/get-user-data" , methods=["GET"])
 @jwt_required()
 def get_favorites():
+    pass
     #*--Check special_utilities/payload_handlers
-    merged_lists=get_merged_lists(current_user.id)
-    return jsonify(merged_lists), 200
-
+    # merged_lists=get_merged_lists(current_user.id)
+    # return jsonify(merged_lists), 200
 
 
 @api.route("/update-user-data" , methods=["POST"])
@@ -88,8 +88,8 @@ def get_favorites():
 def update_data_user():
     #*--Check special_utilities/payload_handlers
     user_payload=request.get_json()
-    updated_information=update_favorites_lists(user_payload,current_user.id)
-    return jsonify("Succesfully updated databases", updated_information), 200
+    # updated_information=update_favorites_lists(user_payload,current_user.id)
+    # return jsonify("Succesfully updated databases", updated_information), 200
     
 
 
