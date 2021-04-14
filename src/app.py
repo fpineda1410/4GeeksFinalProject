@@ -27,7 +27,9 @@ else:
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app, db)
+
 jwt = JWTManager(app)
+
 db.init_app(app)
 
 # Allow CORS requests to this API

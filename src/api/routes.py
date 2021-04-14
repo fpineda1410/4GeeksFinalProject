@@ -97,6 +97,7 @@ def update_data_user():
 @api.route("/user_identity", methods=["GET"])
 @jwt_required()
 def protected():
+    
     # We can now access our sqlalchemy User object via `current_user`.
     return jsonify(
         id=current_user.id,

@@ -31,7 +31,7 @@ class Color(db.Model):
     favorite_color = db.relationship('FavoriteColor',backref='color',lazy=True)
     
     def __repr__(self):
-        return '<User %s>' % self.username
+        return '<Color %s>' % self.color
 
     def serialize(self):
         return {
@@ -48,13 +48,13 @@ class FavoriteColor(db.Model):
     color_id=db.Column(db.Integer,db.ForeignKey(Color.id))
     
     def __repr__(self):
-        return '<User %s>' % self.username
+        return '<Color %s>' % self.color_id
 
     def serialize(self):
         return {
             "id": self.id,
             "user_id": self.user_id,
-            "color_id": self.user_id
+            "color_id": self.color_id
             # do not serialize the password, its a security breach
         }
     
