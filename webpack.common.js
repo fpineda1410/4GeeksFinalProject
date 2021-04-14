@@ -5,7 +5,7 @@ const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: [
-    './src/front/js/index.js'
+    './src/front/js/index.jsx'
   ],
   output: {
     filename: 'bundle.js',
@@ -20,13 +20,19 @@ module.exports = {
           use: ['babel-loader', 'eslint-loader']
         },
         {
-          test: /\.(css|scss)$/, use: [{
+          test: /\.(css|scss|less)$/, use: [{
               loader: "style-loader" // creates style nodes from JS strings
           }, {
               loader: "css-loader" // translates CSS into CommonJS
           }, {
               loader: "sass-loader" // compiles Sass to CSS
-          }]
+          },{loader: "less-loader",
+          options: {
+                javascriptEnabled: true
+            }
+        
+            }
+        ]
         }, //css only files
         {
           test: /\.(png|svg|jpg|gif|jpeg|webp)$/, use: {
