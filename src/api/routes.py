@@ -20,6 +20,10 @@ from datetime import timedelta
 
 api = Blueprint('api', __name__)
 
+#AQUI LUIS TIENE QUE VER LO SIGUIENTE
+#VER QUE INFORMACION VA A SUBIR
+#
+
 
 #* This method injects data to the database before receiving any foreign requests
 @api.before_app_first_request
@@ -44,7 +48,7 @@ def create_account():
         return "Empty email", 400
     if 'password' not in body:
         return "Empty password", 400
-
+#todo modificar como se registra el usuario
     user=User()
     user.username=body['username']
     user.email=body['email']
@@ -56,9 +60,10 @@ def create_account():
     response_body = {
         "msg": "Added user"
     }
-
     return jsonify(response_body), 200
+#todo modificar como se registra el usuario
 
+#todo modificar como se loggea el usuario
 @api.route("/login", methods=["POST"])
 def login():
     username = request.json.get("username", None)
@@ -72,7 +77,7 @@ def login():
     access_token = create_access_token(identity=user, expires_delta=expiration)
 
     return jsonify(access_token=access_token)
-
+#todo modificar como se loggea el usuario
 
 @api.route("/get-user-data" , methods=["GET"])
 @jwt_required()
@@ -91,6 +96,8 @@ def update_data_user():
     # updated_information=update_favorites_lists(user_payload,current_user.id)
     # return jsonify("Succesfully updated databases", updated_information), 200
     
+
+
 
 
 #!----Just use for debugging purposes
